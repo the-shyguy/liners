@@ -2,24 +2,28 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
+import dotenv from "dotenv";
 
 import postRoutes from "./routes/posts.js";
 
+dotenv.config();
 const app = express();
 
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(bodyParser.json({ limit: "10mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use(cors());
 
 app.use("/posts", postRoutes);
 
-const CONNECTION_URL =
-  "mongodb+srv://rohit:2529@cluster1.iwv0c.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+app.get("/", (_, res) => {
+  res.send("Hello from Liner API");
+});
 
+const DB = process.env.DATABASE_URL;
 const PORT = process.env.PORT || 5001;
 
 mongoose
-  .connect(CONNECTION_URL, {
+  .connect(DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
