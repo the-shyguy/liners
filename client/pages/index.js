@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Posts from "./components/Posts/Posts";
 import { useDispatch } from "react-redux";
 import { getPosts } from "./actions/posts";
+import Link from "next/link";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -20,6 +21,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
+      <Link href="/">
+        <h1></h1>
+      </Link>
       <Posts />
     </div>
   );
