@@ -1,13 +1,10 @@
 import mongoose from "mongoose";
 
 const postSchema = mongoose.Schema({
-  message: String,
-  user: String,
+  creator: String,
+  title: String,
+  liner: String,
   likeCount: {
-    type: Number,
-    default: 0,
-  },
-  disLikeCount: {
     type: Number,
     default: 0,
   },
