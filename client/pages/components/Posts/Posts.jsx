@@ -41,18 +41,20 @@ const Posts = () => {
             <h4 className="text-white mb-3 font-medium text-lg">
               Latest liners
             </h4>
-            {posts.map((post) => (
-              <Post
-                key={post._id}
-                _id={post._id}
-                creator={post.creator}
-                title={post.title}
-                liner={post.liner}
-                time={post.createdAt}
-                like={post.likeCount}
-                setCurrentId={setCurrentId}
-              />
-            ))}
+            {posts.map((post) =>
+              post.creator || post.title || post.liner ? (
+                <Post
+                  key={post._id}
+                  _id={post._id}
+                  creator={post.creator}
+                  title={post.title}
+                  liner={post.liner}
+                  time={post.createdAt}
+                  like={post.likeCount}
+                  setCurrentId={setCurrentId}
+                />
+              ) : null
+            )}
           </div>
           <div className="w-1/2">
             <div className="w-full">

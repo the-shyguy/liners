@@ -7,8 +7,13 @@ import {
   ShareIcon,
   TrashIcon,
 } from "@heroicons/react/solid";
+import { useDispatch } from "react-redux";
+import { deletePost } from "../../actions/posts";
+import { toast, Slide, ToastContainer } from "react-toastify";
 
 const Post = ({ _id, creator, title, liner, time, like, setCurrentId }) => {
+  const dispatch = useDispatch();
+
   const postedAtDate = time
     .split("T")[0]
     .replace(/-/g, "/")
@@ -17,9 +22,25 @@ const Post = ({ _id, creator, title, liner, time, like, setCurrentId }) => {
     .join("/");
   const postedAtTime = time.split("T")[1].split(".")[0];
 
+  const deleteLiner = () => {
+    dispatch(deletePost(_id));
+    toast.error("Liner Deleted", {
+      position: "top-center",
+      autoClose: 800,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Slide,
+    });
+  };
+
   return (
     <a className="flex mb-2 max-w-lg rounded bg-gray-800 border border-gray-600 hover:border-gray-400">
-      <div className="flex flex-col justify-center items-center px-1.5 bg-gray-900 rounded">
+      <ToastContainer />
+      <div className="flex flex-col justify-center items-center px-1.5 py-2 bg-gray-900 rounded">
         <ChevronUpIcon className="h-6 text-gray-400 hover:text-green-500 hover:bg-gray-600 hover:bg-opacity-50 rounded-sm cursor-pointer mb-1" />
         <small className="text-gray-400 font-semibold">{like}</small>
         <ChevronDownIcon className="h-6 text-gray-400 hover:text-red-500 hover:bg-gray-600 hover:bg-opacity-50 rounded-sm cursor-pointer mt-1" />
@@ -54,7 +75,10 @@ const Post = ({ _id, creator, title, liner, time, like, setCurrentId }) => {
               <small>Share</small>
             </div>
           </div>
-          <button className="flex items-center text-red-400 hover:bg-red-400 hover:bg-opacity-20 hover:text-red-500 px-1 rounded cursor-pointer">
+          <button
+            className="flex items-center text-red-400 hover:bg-red-400 hover:bg-opacity-20 hover:text-red-500 px-1 rounded cursor-pointer"
+            onClick={() => deleteLiner()}
+          >
             <TrashIcon className="h-4 mr-1" />
             <small>Delete</small>
           </button>

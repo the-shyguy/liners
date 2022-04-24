@@ -24,7 +24,7 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
     if (currentId) {
       dispatch(updatePost(currentId, postData));
-      toast.success("Liner updated successfully!", {
+      toast.success("Liner Updated!", {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,
@@ -37,9 +37,9 @@ const Form = ({ currentId, setCurrentId }) => {
       });
     } else {
       dispatch(createPost(postData));
-      toast.success("Liner created successfully!", {
+      toast.success("Liner Posted!", {
         position: "top-center",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: false,
