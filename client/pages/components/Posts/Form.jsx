@@ -16,37 +16,67 @@ const Form = () => {
   };
 
   return (
-    <div className="bg-teal-500">
+    <div className="bg-gray-800 p-4 rounded">
+      <h4 className="mb-2 text-white font-semibold">Create a Liner</h4>
       <form autoComplete="off" noValidate onSubmit={handleSubmit}>
-        <h6>Create a Liner</h6>
-        <textarea
-          name="creator"
-          aria-label="Creator"
-          className="w-full"
-          value={postData.creator}
-          onChange={(e) =>
-            setPostData({ ...postData, creator: e.target.value })
-          }
-          placeholder="Creator"
-        />
-        <textarea
-          name="title"
-          aria-label="Title"
-          className="w-full"
-          value={postData.title}
-          onChange={(e) => setPostData({ ...postData, title: e.target.value })}
-          placeholder="Title"
-        />
-        <textarea
-          name="liner"
-          aria-label="Liner"
-          className="w-full"
-          value={postData.liner}
-          onChange={(e) => setPostData({ ...postData, liner: e.target.value })}
-          placeholder="Liner"
-        />
-        <button type="submit" className="bg-yellow-500">
-          Post
+        <div className="mb-2">
+          <label
+            htmlFor="creator"
+            className="block mb-1 text-sm font-medium text-gray-300"
+          >
+            Creator
+          </label>
+          <input
+            type="text"
+            id="creator"
+            className="border text-sm rounded block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:outline-none"
+            placeholder="Your name"
+            value={postData.creator}
+            onChange={(e) =>
+              setPostData({ ...postData, creator: e.target.value })
+            }
+          />
+        </div>
+        <div className="mb-2">
+          <label
+            htmlFor="title"
+            className="block mb-1 text-sm font-medium text-gray-300"
+          >
+            Title
+          </label>
+          <input
+            type="text"
+            id="title"
+            className="border text-sm rounded block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:outline-none"
+            placeholder="Short and cool"
+            value={postData.title}
+            onChange={(e) =>
+              setPostData({ ...postData, title: e.target.value })
+            }
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="liner"
+            className="block mb-1 text-sm font-medium text-gray-300"
+          >
+            Liner
+          </label>
+          <input
+            type="text"
+            id="liner"
+            className="border text-sm rounded block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:outline-none"
+            placeholder="Liner"
+            value={postData.liner}
+            onChange={(e) =>
+              setPostData({ ...postData, liner: e.target.value })
+            }
+          />
+        </div>
+        <button className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:outline-none">
+          <span className="relative px-5 py-2 transition-all ease-in duration-75 bg-gray-800 rounded-md group-hover:bg-opacity-0">
+            Post
+          </span>
         </button>
       </form>
     </div>

@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Post from "./Post";
 import TopPosts from "./TopPosts";
 import { useSelector } from "react-redux";
 import Form from "./Form";
+
 const Posts = () => {
   const posts = useSelector((state) => state.posts);
-  console.log(posts);
+  const [topPosts, setTopPosts] = useState([]);
+  useEffect(() => {
+    setTopPosts(posts.sort((a, b) => b.likeCount - a.likeCount));
+  }, [posts]);
   return (
-    <div className=" flex justify-evenly bg-red-400 py-6 md:w-5/6 xl:w-4/5 mx-auto">
+    <div className=" flex justify-evenly bg-red-400 py-6 md:w-5/6 xl:w-4/5 mx-auto gap-4">
       {!posts.length ? (
         <div className=" w-2/3 flex justify-center items-center">
           <svg
@@ -29,7 +33,10 @@ const Posts = () => {
         </div>
       ) : (
         <>
-          <div className=" w-2/3 bg-cyan-500 m-2">
+          <div className=" w-2/3 bg-slate-700">
+            <h4 className="text-white mb-3 font-medium text-lg">
+              Latest liners
+            </h4>
             {posts.map((post) => (
               <Post
                 key={post._id}
@@ -37,11 +44,27 @@ const Posts = () => {
                 title={post.title}
                 liner={post.liner}
                 time={post.createdAt}
+                like={post.likeCount}
               />
             ))}
           </div>
-          <div className="w-1/3">
-            <TopPosts />
+          <div className="w-1/2">
+            <div className="w-full">
+              {/* <TopPosts /> */}
+              <h4 className="text-white mb-3 font-medium text-lg">
+                Latest liners
+              </h4>
+              {topPosts.map((post) => (
+                <Post
+                  key={post._id}
+                  creator={post.creator}
+                  title={post.title}
+                  liner={post.liner}
+                  time={post.createdAt}
+                  like={post.likeCount}
+                />
+              ))}
+            </div>
             <Form />
           </div>
         </>
