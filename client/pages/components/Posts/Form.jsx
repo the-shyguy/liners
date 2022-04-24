@@ -1,24 +1,62 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createPost } from "../../actions/posts";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createPost, updatePost } from "../../actions/posts";
+import { ToastContainer, toast, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
     liner: "",
   });
+  const [visible, setVisible] = useState(false);
+  const updatedPost = useSelector((state) =>
+    currentId ? state.posts.find((p) => p._id === currentId) : null
+  );
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (updatedPost) setPostData(updatedPost);
+  }, [updatedPost]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createPost(postData));
+    if (currentId) {
+      dispatch(updatePost(currentId, postData));
+    } else {
+      dispatch(createPost(postData));
+    }
+    clear();
+    toast.success("Wow so easy!", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Slide,
+    });
+  };
+
+  const clear = () => {
+    setCurrentId(null);
+    setPostData({
+      creator: "",
+      title: "",
+      liner: "",
+    });
   };
 
   return (
     <div className="bg-gray-800 p-4 rounded">
-      <h4 className="mb-2 text-white font-semibold">Create a Liner</h4>
-      <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+      <ToastContainer />
+      <h4 className="mb-2 text-white font-semibold">
+        {currentId ? "Edit" : "Create"} a Liner
+      </h4>
+      <form autoComplete="off" onSubmit={handleSubmit}>
         <div className="mb-2">
           <label
             htmlFor="creator"
@@ -35,6 +73,7 @@ const Form = () => {
             onChange={(e) =>
               setPostData({ ...postData, creator: e.target.value })
             }
+            required
           />
         </div>
         <div className="mb-2">
@@ -53,6 +92,7 @@ const Form = () => {
             onChange={(e) =>
               setPostData({ ...postData, title: e.target.value })
             }
+            required
           />
         </div>
         <div className="mb-4">
@@ -71,9 +111,13 @@ const Form = () => {
             onChange={(e) =>
               setPostData({ ...postData, liner: e.target.value })
             }
+            required
           />
         </div>
-        <button className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:outline-none">
+        <button
+          type="submit"
+          className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:outline-none"
+        >
           <span className="relative px-5 py-2 transition-all ease-in duration-75 bg-gray-800 rounded-md group-hover:bg-opacity-0">
             Post
           </span>

@@ -6,12 +6,16 @@ import Form from "./Form";
 
 const Posts = () => {
   const posts = useSelector((state) => state.posts);
+
   const [topPosts, setTopPosts] = useState([]);
+  const [currentId, setCurrentId] = useState(null);
+
   useEffect(() => {
-    setTopPosts(posts.sort((a, b) => b.likeCount - a.likeCount));
+    setTopPosts([posts].sort((a, b) => b.likeCount - a.likeCount));
   }, [posts]);
+
   return (
-    <div className=" flex justify-evenly bg-red-400 py-6 md:w-5/6 xl:w-4/5 mx-auto gap-4">
+    <div className=" flex justify-evenly bg-red-400 py-6 md:w-5/6 xl:w-4/5 mx-auto gap-4 h-screen">
       {!posts.length ? (
         <div className=" w-2/3 flex justify-center items-center">
           <svg
@@ -40,11 +44,13 @@ const Posts = () => {
             {posts.map((post) => (
               <Post
                 key={post._id}
+                _id={post._id}
                 creator={post.creator}
                 title={post.title}
                 liner={post.liner}
                 time={post.createdAt}
                 like={post.likeCount}
+                setCurrentId={setCurrentId}
               />
             ))}
           </div>
@@ -54,18 +60,20 @@ const Posts = () => {
               <h4 className="text-white mb-3 font-medium text-lg">
                 Latest liners
               </h4>
-              {topPosts.map((post) => (
+              {/* {topPosts.map((post) => (
                 <Post
                   key={post._id}
+                  _id={post._id}
                   creator={post.creator}
                   title={post.title}
                   liner={post.liner}
                   time={post.createdAt}
                   like={post.likeCount}
+                  setCurrentId={setCurrentId}
                 />
-              ))}
+              ))} */}
             </div>
-            <Form />
+            <Form currentId={currentId} setCurrentId={setCurrentId} />
           </div>
         </>
       )}
