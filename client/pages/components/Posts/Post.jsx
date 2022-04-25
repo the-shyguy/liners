@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   PencilIcon,
   ChevronUpIcon,
@@ -8,11 +8,21 @@ import {
   TrashIcon,
 } from "@heroicons/react/solid";
 import { useDispatch } from "react-redux";
-import { deletePost } from "../../actions/posts";
+import { deletePost, likePost, dislikePost } from "../../actions/posts";
 import { toast, Slide, ToastContainer } from "react-toastify";
 
-const Post = ({ _id, creator, title, liner, time, like, setCurrentId }) => {
+const Post = ({
+  _id,
+  creator,
+  title,
+  liner,
+  time,
+  likeCount,
+  setCurrentId,
+}) => {
   const dispatch = useDispatch();
+  const [like, setLike] = useState(false);
+  const [dislike, setDislike] = useState(false);
 
   const postedAtDate = time
     .split("T")[0]
@@ -21,6 +31,30 @@ const Post = ({ _id, creator, title, liner, time, like, setCurrentId }) => {
     .reverse()
     .join("/");
   const postedAtTime = time.split("T")[1].split(".")[0];
+
+  const likeHandler = () => {
+    dispatch(likePost(_id));
+    setLike(!like);
+    if (dislike) {
+      setDislike(!dislike);
+    }
+
+    if (like) {
+      dispatch(dislikePost(_id));
+    }
+  };
+
+  const dislikeHandler = () => {
+    dispatch(dislikePost(_id));
+    setDislike(!dislike);
+    if (like) {
+      setLike(!like);
+    }
+
+    if (dislike) {
+      dispatch(likePost(_id));
+    }
+  };
 
   const deleteLiner = () => {
     dispatch(deletePost(_id));
@@ -41,9 +75,25 @@ const Post = ({ _id, creator, title, liner, time, like, setCurrentId }) => {
     <a className="flex mb-2 max-w-lg rounded bg-gray-800 border border-gray-600 hover:border-gray-400">
       <ToastContainer />
       <div className="flex flex-col justify-center items-center px-1.5 py-2 bg-gray-900 rounded">
-        <ChevronUpIcon className="h-6 text-gray-400 hover:text-green-500 hover:bg-gray-600 hover:bg-opacity-50 rounded-sm cursor-pointer mb-1" />
-        <small className="text-gray-400 font-semibold">{like}</small>
-        <ChevronDownIcon className="h-6 text-gray-400 hover:text-red-500 hover:bg-gray-600 hover:bg-opacity-50 rounded-sm cursor-pointer mt-1" />
+        <ChevronUpIcon
+          className={`${
+            like && "text-green-500"
+          } h-6 text-gray-400 hover:text-green-500 hover:bg-gray-600 hover:bg-opacity-50 rounded-sm cursor-pointer mb-1`}
+          onClick={() => likeHandler()}
+        />
+        <small
+          className={` ${
+            (like && "text-green-500") || (dislike && "text-red-500")
+          } text-gray-400 font-semibold`}
+        >
+          {likeCount}
+        </small>
+        <ChevronDownIcon
+          className={`${
+            dislike && "text-red-500"
+          } h-6 text-gray-400 hover:text-red-500 hover:bg-gray-600 hover:bg-opacity-50 rounded-sm cursor-pointer mt-1`}
+          onClick={() => dislikeHandler()}
+        />
       </div>
       <div className="w-full px-3 py-2">
         <div className="text-gray-500 mb-2 flex justify-between">

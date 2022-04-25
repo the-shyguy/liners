@@ -50,7 +50,7 @@ const Posts = () => {
                   title={post.title}
                   liner={post.liner}
                   time={post.createdAt}
-                  like={post.likeCount}
+                  likeCount={post.likeCount}
                   setCurrentId={setCurrentId}
                 />
               ) : null
