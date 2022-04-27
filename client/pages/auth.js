@@ -61,6 +61,7 @@ const auth = () => {
   };
 
   // console.log(formData.firstName);
+  // console.log(process.env.NEXT_PUBLIC_CLIENT_ID);
   return (
     <div className="w-full h-screen flex justify-center items-center bg-gray-700">
       <div className="w-80">
@@ -197,7 +198,7 @@ const auth = () => {
           </button>
         </form>
         <GoogleLogin
-          clientId="193030365246-2opou9283f0omn6t16uoa83r2461fo9e.apps.googleusercontent.com"
+          clientId={process.env.NEXT_PUBLIC_CLIENT_ID}
           render={(renderProps) => (
             <button
               className="w-full bg-white py-2 rounded font-medium text-gray-600 flex justify-center items-center gap-2 hover:bg-gray-200 transition-all"

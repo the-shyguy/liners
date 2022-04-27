@@ -55,8 +55,7 @@ const Post = ({
       dispatch(likePost(_id));
     }
   };
-  console.log(like);
-  console.log(dislike);
+
   const deleteLiner = () => {
     dispatch(deletePost(_id));
     toast.error("Liner Deleted", {
