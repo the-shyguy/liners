@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
 import { GoogleLogin } from "react-google-login";
 import GoogleIcon from "./icons/GoogleIcon";
-// import gapi from "gapi-script";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 const auth = () => {
   const [isSignup, setIsSignup] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
-  const [gsiScriptLoaded, setGsiScriptLoaded] = useState(false);
   const [user, setUser] = useState(undefined);
 
   const [formData, setFormData] = useState({
@@ -18,9 +18,10 @@ const auth = () => {
     confirmPassword: "",
   });
 
+  const dispatch = useDispatch();
+  const router = useRouter();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(e.target.name);
   };
 
   const handleSubmit = (e) => {
@@ -44,25 +45,22 @@ const auth = () => {
     });
   };
 
-  const googleSuccess = (res) => {
-    console.log(res);
+  const googleSuccess = async (res) => {
+    const result = res?.profileObj;
+    const token = res?.tokenId;
+
+    try {
+      dispatch({ type: "AUTH", data: { result, token } });
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const googleFailure = () => {
-    console.log("Google sing in unsuccessful");
+  const googleFailure = (error) => {
+    console.log(error);
   };
 
-  //   useEffect(() => {
-  //     const start = () => {
-  //       gapi.client.init({
-  //         clientId:
-  //           "193030365246-2opou9283f0omn6t16uoa83r2461fo9e.apps.googleusercontent.com",
-  //         scope: "",
-  //       });
-
-  //       gapi.load("client:auth:2", start);
-  //     };
-  //   });
-  console.log(formData.firstName);
+  // console.log(formData.firstName);
   return (
     <div className="w-full h-screen flex justify-center items-center bg-gray-700">
       <div className="w-80">
@@ -173,7 +171,7 @@ const auth = () => {
                   className="hover:underline cursor-pointer"
                   onClick={() => switchMode()}
                 >
-                  Login
+                  Sign In
                 </span>
               </small>
             </div>
@@ -195,14 +193,18 @@ const auth = () => {
             type="submit"
             className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-md w-full px-5 py-2 text-center mb-4 transition-all"
           >
-            {isSignup ? "Sign Up" : "Login"}
+            {isSignup ? "Sign Up" : "Sign In"}
           </button>
         </form>
         <GoogleLogin
           clientId="193030365246-2opou9283f0omn6t16uoa83r2461fo9e.apps.googleusercontent.com"
           render={(renderProps) => (
-            <button className="w-full bg-white py-2 rounded font-medium text-gray-600 flex justify-center items-center gap-2 hover:bg-gray-200 transition-all">
-              <GoogleIcon /> {isSignup ? "Sign Up" : "Login"} with Google
+            <button
+              className="w-full bg-white py-2 rounded font-medium text-gray-600 flex justify-center items-center gap-2 hover:bg-gray-200 transition-all"
+              onClick={renderProps.onClick}
+              disabled={renderProps.disabled}
+            >
+              <GoogleIcon /> {isSignup ? "Sign Up" : "Sign In"} with Google
             </button>
           )}
           onSuccess={googleSuccess}
