@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Head from "next/head";
-import Navbar from "./components/Navbar";
-import Posts from "./components/Posts/Posts";
+import Navbar from "./Navbar";
+import Posts from "./Posts";
 import { useDispatch } from "react-redux";
 import { getPosts } from "../actions/posts";
 import Link from "next/link";
