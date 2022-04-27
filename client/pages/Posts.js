@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Post from "./Posts/Post";
-import TopPosts from "./Posts/TopPosts";
+import TopPosts from "./TopPosts";
 import { useSelector } from "react-redux";
 import Form from "./Form";
 
