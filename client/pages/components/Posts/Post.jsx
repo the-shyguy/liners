@@ -8,7 +8,7 @@ import {
   TrashIcon,
 } from "@heroicons/react/solid";
 import { useDispatch } from "react-redux";
-import { deletePost, likePost, dislikePost } from "../../actions/posts";
+import { deletePost, likePost, dislikePost } from "../../../actions/posts";
 import { toast, Slide, ToastContainer } from "react-toastify";
 
 const Post = ({
