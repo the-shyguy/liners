@@ -20,6 +20,7 @@ const Post = ({
   time,
   likeCount,
   setCurrentId,
+  tags,
 }) => {
   const dispatch = useDispatch();
   const [like, setLike] = useState(false);
@@ -74,7 +75,7 @@ const Post = ({
 
   return (
     <Link
-      className="flex mb-2 max-w-lg rounded bg-gray-800 border border-gray-600 hover:border-gray-400"
+      className="flex mb-2 max-w-lg rounded bg-gray-800 border border-gray-600 hover:border-gray-400 cursor-default"
       to=""
     >
       <ToastContainer />
@@ -114,6 +115,18 @@ const Post = ({
             <small className="ml-1">Edit</small>
           </div>
         </div>
+        {tags.length > 0 && (
+          <div className="flex w-full mb-2">
+            {tags.map((tag) => (
+              <small
+                className={`border px-1 mr-2 rounded ${tag.color}`}
+                key={tag.id}
+              >
+                {tag.text}
+              </small>
+            ))}
+          </div>
+        )}
         <h5 className="mb-1 text-xl font-medium tracking-wider text-white">
           {title}
         </h5>

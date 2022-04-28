@@ -52,6 +52,7 @@ const Home = () => {
                   time={post.createdAt}
                   likeCount={post.likeCount}
                   setCurrentId={setCurrentId}
+                  tags={post.tags}
                 />
               ) : null
             )}
