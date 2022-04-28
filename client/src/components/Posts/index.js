@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { deletePost, likePost, dislikePost } from "../../store/actions/posts";
 import { toast, Slide, ToastContainer } from "react-toastify";
 import { Link } from "react-router-dom";
+import { RWebShare } from "react-web-share";
 
 const Post = ({
   _id,
@@ -25,7 +26,6 @@ const Post = ({
   const dispatch = useDispatch();
   const [like, setLike] = useState(false);
   const [dislike, setDislike] = useState(false);
-
   const postedAtDate = time
     .split("T")[0]
     .replace(/-/g, "/")
@@ -33,6 +33,9 @@ const Post = ({
     .reverse()
     .join("/");
   const postedAtTime = time.split("T")[1].split(".")[0];
+  // ID to be added here
+  const url = `${window.location.href}${title}`;
+  console.log(url);
 
   const likeHandler = () => {
     dispatch(likePost(_id));
@@ -137,10 +140,19 @@ const Post = ({
               <AnnotationIcon className="h-4 mr-1" />
               <small>Comments</small>
             </div>
-            <div className="flex items-center text-gray-400 hover:bg-gray-400 hover:bg-opacity-30 hover:text-white px-1 rounded cursor-pointer">
-              <ShareIcon className="h-3 mr-1" />
-              <small>Share</small>
-            </div>
+            <RWebShare
+              data={{
+                text: `"${liner}" Liner at`,
+                url: url,
+                title: "Share Liner",
+              }}
+              onClick={() => console.log("shared successfully!")}
+            >
+              <div className="flex items-center text-gray-400 hover:bg-gray-400 hover:bg-opacity-30 hover:text-white px-1 rounded cursor-pointer">
+                <ShareIcon className="h-3 mr-1" />
+                <small>Share</small>
+              </div>
+            </RWebShare>
           </div>
           <button
             className="flex items-center text-red-400 hover:bg-red-400 hover:bg-opacity-20 hover:text-red-500 px-1 rounded cursor-pointer"

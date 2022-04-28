@@ -201,7 +201,7 @@ const Auth = () => {
           clientId={process.env.REACT_APP_CLIENT_ID}
           render={(renderProps) => (
             <button
-              className="w-full bg-white py-2 rounded font-medium text-gray-600 flex justify-center items-center gap-2 hover:bg-gray-200 transition-all"
+              className="w-full bg-white py-2 rounded-lg font-medium text-gray-600 flex justify-center items-center gap-2 hover:bg-gray-200 transition-all"
               onClick={renderProps.onClick}
               disabled={renderProps.disabled}
             >
