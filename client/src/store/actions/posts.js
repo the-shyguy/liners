@@ -1,4 +1,4 @@
-import * as api from "../../pages/api";
+import * as api from "../../components/api";
 
 export const getPosts = () => async (dispatch) => {
   try {

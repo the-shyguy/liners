@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import axios from "axios";
 
-const url = process.env.NEXT_PUBLIC_API_URL;
+const url = process.env.REACT_APP_API_URL;
 
 // const deployedURL = "https://liner-server.herokuapp.com/posts";
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost, updatePost } from "../../Redux/actions/posts";
+import { createPost, updatePost } from "../../store/actions/posts";
 import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,7 +10,6 @@ const Form = ({ currentId, setCurrentId }) => {
     title: "",
     liner: "",
   });
-  const [visible, setVisible] = useState(false);
   const updatedPost = useSelector((state) =>
     currentId ? state.posts.find((p) => p._id === currentId) : null
   );

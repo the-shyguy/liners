@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
 import { GoogleLogin } from "react-google-login";
-import GoogleIcon from "./icons/GoogleIcon";
+import GoogleIcon from "../icons/GoogleIcon";
 import { useDispatch } from "react-redux";
-import { useRouter } from "next/router";
+import { useNavigate } from "react-router-dom";
 
-const auth = () => {
+const Auth = () => {
   const [isSignup, setIsSignup] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
-  const [user, setUser] = useState(undefined);
+  // const [user, setUser] = useState(undefined);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -19,7 +19,7 @@ const auth = () => {
   });
 
   const dispatch = useDispatch();
-  const router = useRouter();
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -51,7 +51,7 @@ const auth = () => {
 
     try {
       dispatch({ type: "AUTH", data: { result, token } });
-      router.push("/");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -61,7 +61,7 @@ const auth = () => {
   };
 
   // console.log(formData.firstName);
-  // console.log(process.env.NEXT_PUBLIC_CLIENT_ID);
+  // console.log(process.env.REACT_APP_CLIENT_ID);
   return (
     <div className="w-full h-screen flex justify-center items-center bg-gray-700">
       <div className="w-80">
@@ -198,7 +198,7 @@ const auth = () => {
           </button>
         </form>
         <GoogleLogin
-          clientId={process.env.NEXT_PUBLIC_CLIENT_ID}
+          clientId={process.env.REACT_APP_CLIENT_ID}
           render={(renderProps) => (
             <button
               className="w-full bg-white py-2 rounded font-medium text-gray-600 flex justify-center items-center gap-2 hover:bg-gray-200 transition-all"
@@ -217,4 +217,4 @@ const auth = () => {
   );
 };
 
-export default auth;
+export default Auth;

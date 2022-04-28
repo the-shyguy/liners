@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Post from "./Posts/Post";
-import TopPosts from "./TopPosts";
+import Post from "../Posts";
+// import TopPosts from "./TopPosts";
 import { useSelector } from "react-redux";
-import Form from "./Form";
+import Form from "../Form";
 
-const Posts = () => {
+const Home = () => {
   const posts = useSelector((state) => state.posts);
 
-  const [topPosts, setTopPosts] = useState([]);
+  // const [topPosts, setTopPosts] = useState([]);
   const [currentId, setCurrentId] = useState(null);
 
   useEffect(() => {
-    setTopPosts([posts].sort((a, b) => b.likeCount - a.likeCount));
+    // setTopPosts([posts].sort((a, b) => b.likeCount - a.likeCount));
   }, [posts]);
 
   return (
@@ -83,4 +83,4 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+export default Home;

@@ -8,8 +8,9 @@ import {
   TrashIcon,
 } from "@heroicons/react/solid";
 import { useDispatch } from "react-redux";
-import { deletePost, likePost, dislikePost } from "../../Redux/actions/posts";
+import { deletePost, likePost, dislikePost } from "../../store/actions/posts";
 import { toast, Slide, ToastContainer } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Post = ({
   _id,
@@ -72,7 +73,10 @@ const Post = ({
   };
 
   return (
-    <a className="flex mb-2 max-w-lg rounded bg-gray-800 border border-gray-600 hover:border-gray-400">
+    <Link
+      className="flex mb-2 max-w-lg rounded bg-gray-800 border border-gray-600 hover:border-gray-400"
+      to=""
+    >
       <ToastContainer />
       <div className="flex flex-col justify-center items-center px-1.5 py-2 bg-gray-900 rounded">
         <ChevronUpIcon
@@ -134,7 +138,7 @@ const Post = ({
           </button>
         </div>
       </div>
-    </a>
+    </Link>
   );
 };
 
