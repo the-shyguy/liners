@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
 import { GoogleLogin } from "react-google-login";
 import GoogleIcon from "../icons/GoogleIcon";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Auth = () => {
-  const [isSignup, setIsSignup] = useState(true);
+  const [isSignup, setIsSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   // const [user, setUser] = useState(undefined);
 
@@ -20,6 +20,7 @@ const Auth = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -60,8 +61,16 @@ const Auth = () => {
     console.log(error);
   };
 
+  useEffect(() => {
+    const user = window.localStorage.getItem("profile");
+
+    if (user && location.pathname === "/auth") {
+      navigate("/");
+    }
+  }, [navigate, location.pathname]);
+
   // console.log(formData.firstName);
-  // console.log(process.env.REACT_APP_CLIENT_ID);
+  // console.log(location.pathname);
   return (
     <div className="w-full h-screen flex justify-center items-center bg-gray-700">
       <div className="w-80">
