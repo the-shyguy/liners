@@ -38,9 +38,6 @@ const Auth = () => {
     setIsSignup(!isSignup);
     setShowPassword(false);
     setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
       password: "",
       confirmPassword: "",
     });
@@ -132,10 +129,12 @@ const Auth = () => {
             } relative z-0 w-full group`}
           >
             {showPassword ? (
-              <EyeIcon
-                className="h-4 absolute right-1 bottom-2 text-gray-500 z-10 cursor-pointer"
-                onClick={() => handleShowPassword()}
-              />
+              <button className="flex">
+                <EyeIcon
+                  className="h-4 absolute right-1 bottom-2 text-gray-500 z-10 cursor-pointer"
+                  onClick={() => handleShowPassword()}
+                />
+              </button>
             ) : (
               <EyeOffIcon
                 className="h-4 absolute right-1 bottom-2 text-gray-500 z-10 cursor-pointer"

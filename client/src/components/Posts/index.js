@@ -78,7 +78,7 @@ const Post = ({
 
   return (
     <Link
-      className="flex mb-2 max-w-lg rounded bg-gray-800 border border-gray-600 hover:border-gray-400 cursor-default"
+      className="flex mb-2 w-full rounded bg-gray-800 border border-gray-600 hover:border-gray-400 cursor-default"
       to=""
     >
       <ToastContainer />
@@ -119,10 +119,10 @@ const Post = ({
           </div>
         </div>
         {tags.length > 0 && (
-          <div className="flex w-full mb-2">
+          <div className="flex w-full gap-1">
             {tags.map((tag) => (
               <small
-                className={`border px-1 mr-2 rounded ${tag.color}`}
+                className={`border px-1 mr-2 rounded text-xs mb-1 ${tag.color}`}
                 key={tag.id}
               >
                 {tag.text}

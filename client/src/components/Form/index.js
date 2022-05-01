@@ -112,9 +112,6 @@ const Form = ({ currentId, setCurrentId }) => {
   return (
     <div className="bg-gray-800 p-4 rounded">
       <ToastContainer />
-      <h4 className="mb-2 text-white font-semibold">
-        {currentId ? "Edit" : "Create"} a Liner
-      </h4>
       <form autoComplete="off" onSubmit={handleSubmit}>
         <div className="mb-2">
           <label
