@@ -62,7 +62,7 @@ const Auth = () => {
     const user = window.localStorage.getItem("profile");
 
     if (user && location.pathname === "/auth") {
-      navigate("/");
+      navigate("/posts");
     }
   }, [navigate, location.pathname]);
 

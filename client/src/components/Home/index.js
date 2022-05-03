@@ -3,6 +3,7 @@ import Post from "../Posts";
 import { useSelector } from "react-redux";
 import Form from "../Form";
 import TopPosts from "../TopPosts";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Home = () => {
   const posts = useSelector((state) => state.posts);
@@ -44,21 +45,23 @@ const Home = () => {
               <h4 className="text-white mb-1 font-medium text-lg pl-1">
                 Latest Liners
               </h4>
-              {posts.map((post) =>
-                post.creator || post.title || post.liner ? (
-                  <Post
-                    key={post._id}
-                    _id={post._id}
-                    creator={post.creator}
-                    title={post.title}
-                    liner={post.liner}
-                    time={post.createdAt}
-                    likeCount={post.likeCount}
-                    setCurrentId={setCurrentId}
-                    tags={post.tags}
-                  />
-                ) : null
-              )}
+              <InfiniteScroll dataLength={posts.length}>
+                {posts.map((post) =>
+                  post.creator || post.title || post.liner ? (
+                    <Post
+                      key={post._id}
+                      _id={post._id}
+                      creator={post.creator}
+                      title={post.title}
+                      liner={post.liner}
+                      time={post.createdAt}
+                      likeCount={post.likeCount}
+                      setCurrentId={setCurrentId}
+                      tags={post.tags}
+                    />
+                  ) : null
+                )}
+              </InfiniteScroll>
             </div>
           </div>
           <div className="w-2/4">
