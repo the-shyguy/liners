@@ -11,9 +11,8 @@ const Home = () => {
   const [topPosts, setTopPosts] = useState([]);
   const [currentId, setCurrentId] = useState(null);
   const [greetText, setGreetText] = useState({ text: "", icon: "" });
+  const [user, setUser] = useState(null);
   const time = new Date().getHours();
-
-  console.log(greetText);
 
   useEffect(() => {
     if (time > 3 && time <= 12) {
@@ -62,6 +61,10 @@ const Home = () => {
     );
   }, [posts]);
 
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, []);
+  console.log(user);
   return (
     <div className=" flex flex-col items-center pt-20 px-4 md:px-0 min-h-screen w-full">
       {!posts.length ? (
@@ -72,7 +75,9 @@ const Home = () => {
       ) : (
         <>
           <h1 className=" block font-semibold text-3xl text-white">
-            {greetText.text}, Rohit {greetText.icon}
+            {greetText.text},{" "}
+            {user?.result.name ? user.result.name.split(" ")[0] : "Anonymous"}{" "}
+            {greetText.icon}
           </h1>
 
           <div className="flex justify-evenly bg-gray-700 md:w-5/6 xl:w-4/6 mx-auto gap-8 mt-8">
