@@ -8,10 +8,11 @@ import {
   TrashIcon,
 } from "@heroicons/react/solid";
 import { useDispatch } from "react-redux";
-import { deletePost, likePost, dislikePost } from "../../store/actions/posts";
-import { toast, Slide, ToastContainer } from "react-toastify";
+import { likePost, dislikePost } from "../../store/actions/posts";
+import { ToastContainer } from "react-toastify";
 import { Link } from "react-router-dom";
 import { RWebShare } from "react-web-share";
+import Modal from "../Modal";
 
 const Post = ({
   _id,
@@ -26,6 +27,7 @@ const Post = ({
   const dispatch = useDispatch();
   const [like, setLike] = useState(false);
   const [dislike, setDislike] = useState(false);
+  const [modalState, setModalState] = useState(false);
   const postedAtDate = time
     .split("T")[0]
     .replace(/-/g, "/")
@@ -34,8 +36,8 @@ const Post = ({
     .join("/");
   const postedAtTime = time.split("T")[1].split(".")[0];
   // ID to be added here
-  const url = `${window.location.href}${title}`;
-  console.log(url);
+  const url = `${window.location.href}`;
+  // console.log(url);
 
   const likeHandler = () => {
     dispatch(likePost(_id));
@@ -61,26 +63,12 @@ const Post = ({
     }
   };
 
-  const deleteLiner = () => {
-    dispatch(deletePost(_id));
-    toast.error("Liner Deleted", {
-      position: "top-center",
-      autoClose: 800,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-      transition: Slide,
-    });
-  };
-
   return (
     <Link
       className="flex mb-2 w-full rounded bg-gray-800 border border-gray-600 hover:border-gray-400 cursor-default"
       to=""
     >
+      {modalState ? <Modal setModalState={setModalState} _id={_id} /> : null}
       <ToastContainer />
       <div className="flex flex-col justify-center items-center px-1.5 py-2 bg-gray-900 rounded">
         <ChevronUpIcon
@@ -122,7 +110,9 @@ const Post = ({
           <div className="flex w-full gap-1">
             {tags.map((tag) => (
               <small
-                className={`border px-1 mr-2 rounded text-xs mb-1 ${tag.color}`}
+                className={`border px-1 mr-2 rounded text-xs mb-1 ${
+                  tag.color ? tag.color : "text-white"
+                }`}
                 key={tag.id}
               >
                 {tag.text}
@@ -143,7 +133,7 @@ const Post = ({
             <RWebShare
               data={{
                 text: `"${liner}" Liner at`,
-                url: url,
+                url: `${url}/${_id}`,
                 title: "Share Liner",
               }}
               onClick={() => console.log("shared successfully!")}
@@ -156,7 +146,9 @@ const Post = ({
           </div>
           <button
             className="flex items-center text-red-400 hover:bg-red-400 hover:bg-opacity-20 hover:text-red-500 px-1 rounded cursor-pointer"
-            onClick={() => deleteLiner()}
+            onClick={() => setModalState(true)}
+            data-modal-toggle="popup-modal"
+            type="button"
           >
             <TrashIcon className="h-4 mr-1" />
             <small>Delete</small>

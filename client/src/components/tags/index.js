@@ -6,6 +6,8 @@ const tags = [
   { id: "HAHA", color: "" },
   { id: "Nostalgic", color: "" },
   { id: "NSFW", color: "text-red-500 border-red-500" },
+  { id: "Anime", color: "" },
+  { id: "Quote", color: "" },
 ];
 
 export default tags;

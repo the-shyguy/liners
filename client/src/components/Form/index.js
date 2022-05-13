@@ -39,7 +39,7 @@ const Form = ({ currentId, setCurrentId }) => {
   };
 
   const handleAddition = (tag) => {
-    setLinerTags([...linerTags, tag]);
+    setLinerTags([...postData.tags, tag]);
   };
 
   const handleDrag = (tag, currPos, newPos) => {
@@ -64,10 +64,10 @@ const Form = ({ currentId, setCurrentId }) => {
   }, [updatedPost]);
 
   useEffect(() => {
-    setPostData({ ...postData, tags: linerTags });
+    setPostData((prevData) => ({ ...prevData, tags: linerTags }));
   }, [linerTags]);
 
-  console.log(postData);
+  // console.log(postData);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (currentId) {
@@ -106,7 +106,9 @@ const Form = ({ currentId, setCurrentId }) => {
       creator: "",
       title: "",
       liner: "",
+      tags: [],
     });
+    setLinerTags([]);
   };
 
   return (
@@ -182,7 +184,7 @@ const Form = ({ currentId, setCurrentId }) => {
                 "bg-gray-400 cursor-pointer px-1 rounded text-black text-sm",
               remove: "ml-1 hover:text-gray-400 text-md",
             }}
-            tags={linerTags}
+            tags={postData.tags}
             suggestions={suggestions}
             delimiters={delimiters}
             handleDelete={handleDelete}
