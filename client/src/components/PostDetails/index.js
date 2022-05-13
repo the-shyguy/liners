@@ -1,6 +1,6 @@
 import React from "react";
 
-function PostDetails() {
+function PostDetails(_id) {
   return <div>PostDetails</div>;
 }
 
