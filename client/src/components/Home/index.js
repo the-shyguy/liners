@@ -27,19 +27,19 @@ const Home = () => {
         text: "Afternoon",
         icon: "🔆",
       }));
-    } else if (time > 16 && time <= 21) {
+    } else if (time > 16 && time < 20) {
       setGreetText((prevState) => ({
         ...prevState,
         text: "Evening",
         icon: "🌖",
       }));
-    } else if (time > 21 && time <= 23) {
+    } else if (time >= 20 && time < 0) {
       setGreetText((prevState) => ({
         ...prevState,
         text: "Night",
         icon: "🌙",
       }));
-    } else if (time > 23 && time < 3) {
+    } else if (time >= 0 && time < 3) {
       setGreetText((prevState) => ({
         ...prevState,
         text: "Mid Night",
@@ -64,12 +64,15 @@ const Home = () => {
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, []);
-  console.log(user);
+  console.log(time);
   return (
-    <div className=" flex flex-col items-center pt-20 px-4 md:px-0 min-h-screen w-full">
+    <div
+      className={`flex flex-col items-center ${
+        !posts.length ? "" : "pt-20"
+      } px-4 md:px-0 min-h-screen w-full`}
+    >
       {!posts.length ? (
-        <div className=" w-2/3 flex justify-center items-center">
-          {/* <Loading /> */}
+        <div className="flex justify-center items-center h-screen">
           <Loader />
         </div>
       ) : (
@@ -80,29 +83,35 @@ const Home = () => {
             {greetText.icon}
           </h1>
 
-          <div className="flex justify-evenly bg-gray-700 md:w-5/6 xl:w-4/6 mx-auto gap-8 mt-8">
+          <div className="flex justify-evenly bg-slate-700 md:w-5/6 xl:w-4/6 mx-auto gap-8 mt-8">
             <div className=" w-2/3 bg-slate-700 flex">
               <div className="w-full flex flex-col">
                 <h4 className="text-white mb-1 font-medium text-lg pl-1">
                   Latest Liners
                 </h4>
-                <InfiniteScroll dataLength={posts.length}>
-                  {posts.map((post) =>
-                    post.creator || post.title || post.liner ? (
-                      <Post
-                        key={post._id}
-                        _id={post._id}
-                        creator={post.creator}
-                        title={post.title}
-                        liner={post.liner}
-                        time={post.createdAt}
-                        likeCount={post.likeCount}
-                        setCurrentId={setCurrentId}
-                        tags={post.tags}
-                      />
-                    ) : null
-                  )}
-                </InfiniteScroll>
+                {posts.length ? (
+                  <InfiniteScroll dataLength={posts.length}>
+                    {posts.map((post) =>
+                      post.creator || post.title || post.liner ? (
+                        <Post
+                          key={post._id}
+                          _id={post._id}
+                          creator={post.creator}
+                          title={post.title}
+                          liner={post.liner}
+                          time={post.createdAt}
+                          likeCount={post.likeCount}
+                          setCurrentId={setCurrentId}
+                          tags={post.tags}
+                        />
+                      ) : null
+                    )}
+                  </InfiniteScroll>
+                ) : (
+                  <div className="flex justify-center items-center h-full">
+                    <Loader />
+                  </div>
+                )}
               </div>
             </div>
             <div className="w-2/4">
