@@ -35,7 +35,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const [linerTags, setLinerTags] = useState([]);
 
   const handleDelete = (i) => {
-    setLinerTags(linerTags.filter((_, index) => index !== i));
+    setLinerTags(postData.tags.filter((_, index) => index !== i));
   };
 
   const handleAddition = (tag) => {

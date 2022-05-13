@@ -98,13 +98,13 @@ const Post = ({
             <span className=" font-semibold text-gray-400">{creator}</span> on{" "}
             {postedAtDate} at {postedAtTime}
           </small>
-          <div
+          <button
             className=" px-1 rounded flex items-center text-gray-400 hover:bg-gray-400 hover:bg-opacity-30 hover:text-white cursor-pointer"
             onClick={() => setCurrentId(_id)}
           >
             <PencilIcon className="h-3.5 " />
             <small className="ml-1">Edit</small>
-          </div>
+          </button>
         </div>
         {tags.length > 0 && (
           <div className="flex w-full gap-1">
@@ -123,13 +123,13 @@ const Post = ({
         <h5 className="mb-1 text-xl font-medium tracking-wider text-white">
           {title}
         </h5>
-        <p className="font-lg text-gray-300 mb-3">{liner}</p>
+        <p className={`font-lg text-gray-300 mb-3`}>{liner}</p>
         <div className="flex w-full justify-between">
           <div className="flex">
-            <div className="flex items-center text-gray-400 hover:bg-gray-400 hover:bg-opacity-30 hover:text-white px-1 rounded mr-2 cursor-pointer">
+            <button className="flex items-center text-gray-400 hover:bg-gray-400 hover:bg-opacity-30 hover:text-white px-1 rounded mr-2 cursor-pointer">
               <AnnotationIcon className="h-4 mr-1" />
               <small>Comments</small>
-            </div>
+            </button>
             <RWebShare
               data={{
                 text: `"${liner}" Liner at`,
@@ -138,10 +138,10 @@ const Post = ({
               }}
               onClick={() => console.log("shared successfully!")}
             >
-              <div className="flex items-center text-gray-400 hover:bg-gray-400 hover:bg-opacity-30 hover:text-white px-1 rounded cursor-pointer">
+              <button className="flex items-center text-gray-400 hover:bg-gray-400 hover:bg-opacity-30 hover:text-white px-1 rounded cursor-pointer">
                 <ShareIcon className="h-3 mr-1" />
                 <small>Share</small>
-              </div>
+              </button>
             </RWebShare>
           </div>
           <button
