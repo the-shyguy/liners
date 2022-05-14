@@ -120,9 +120,9 @@ const Post = ({
             ))}
           </div>
         )}
-        <h5 className="mb-1 text-xl font-medium tracking-wider text-white">
+        <p className="mb-1 text-xl font-medium tracking-wider text-white">
           {title}
-        </h5>
+        </p>
         <p className={`font-lg text-gray-300 mb-3`}>{liner}</p>
         <div className="flex w-full justify-between">
           <div className="flex">

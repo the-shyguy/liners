@@ -86,9 +86,9 @@ const Home = () => {
           <div className="flex justify-evenly bg-slate-700 md:w-5/6 xl:w-4/6 mx-auto gap-8 mt-8">
             <div className=" w-2/3 bg-slate-700 flex">
               <div className="w-full flex flex-col">
-                <h4 className="text-white mb-1 font-medium text-lg pl-1">
+                <div className="text-white mb-1 font-medium text-lg pl-1">
                   Latest Liners
-                </h4>
+                </div>
                 {posts.length ? (
                   <InfiniteScroll dataLength={posts.length}>
                     {posts.map((post) =>
@@ -116,17 +116,17 @@ const Home = () => {
             </div>
             <div className="w-2/4">
               <div className="w-full">
-                <h4 className="text-white mb-1 font-medium text-lg pl-1">
+                <div className="text-white mb-1 font-medium text-lg pl-1">
                   Top Liners
-                </h4>
+                </div>
                 {topPosts.map((post) => (
                   <TopPosts post={post} key={post._id} />
                 ))}
               </div>
               <div className="">
-                <h4 className="mb-1 text-white font-medium text-lg mt-6 pl-1">
+                <div className="mb-1 text-white font-medium text-lg mt-6 pl-1">
                   {currentId ? "Edit" : "Create"} a Liner
-                </h4>
+                </div>
                 <Form currentId={currentId} setCurrentId={setCurrentId} />
               </div>
             </div>

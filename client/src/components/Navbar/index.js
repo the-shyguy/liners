@@ -26,7 +26,7 @@ const Navbar = () => {
   return (
     <div className="bg-gray-900 w-full h-14 flex items-center justify-center fixed">
       <nav className="flex w-full px-6 md:w-5/6 xl:w-4/5 md:px-0 mx-auto justify-between items-center">
-        <Link to="/" className="cursor-pointer">
+        <Link to="/" aria-label="logo">
           <Logo />
         </Link>
         <div className="flex justify-between items-center h-full">
