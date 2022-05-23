@@ -96,11 +96,11 @@ const Home = () => {
                         <Post
                           key={post._id}
                           _id={post._id}
-                          creator={post.creator}
+                          name={post.name}
                           title={post.title}
                           liner={post.liner}
                           time={post.createdAt}
-                          likeCount={post.likeCount}
+                          likes={post.likes}
                           setCurrentId={setCurrentId}
                           tags={post.tags}
                         />

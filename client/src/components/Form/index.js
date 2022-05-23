@@ -25,8 +25,9 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const delimiters = [KeyCodes.comma, KeyCodes.enter, KeyCodes.tab];
 
+  const user = JSON.parse(localStorage.getItem("profile"));
+
   const [postData, setPostData] = useState({
-    creator: "",
     title: "",
     tags: [],
     liner: "",
@@ -71,7 +72,9 @@ const Form = ({ currentId, setCurrentId }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (currentId) {
-      dispatch(updatePost(currentId, postData));
+      dispatch(
+        updatePost(currentId, { ...postData, name: user?.result?.name })
+      );
       toast.success("Liner Updated!", {
         position: "top-center",
         autoClose: 1000,
@@ -84,7 +87,7 @@ const Form = ({ currentId, setCurrentId }) => {
         transition: Slide,
       });
     } else {
-      dispatch(createPost(postData));
+      dispatch(createPost({ ...postData, name: user?.result?.name }));
       toast.success("Liner Posted!", {
         position: "top-center",
         autoClose: 1000,
@@ -100,10 +103,17 @@ const Form = ({ currentId, setCurrentId }) => {
     clear();
   };
 
+  if (!user?.result?.name) {
+    return (
+      <div>
+        <div>Please sign to create your liner</div>
+      </div>
+    );
+  }
+
   const clear = () => {
     setCurrentId(null);
     setPostData({
-      creator: "",
       title: "",
       liner: "",
       tags: [],
@@ -115,25 +125,6 @@ const Form = ({ currentId, setCurrentId }) => {
     <div className="bg-gray-800 p-4 rounded">
       <ToastContainer />
       <form autoComplete="off" onSubmit={handleSubmit}>
-        <div className="mb-2">
-          <label
-            htmlFor="creator"
-            className="block mb-1 text-sm font-medium text-gray-300"
-          >
-            Creator
-          </label>
-          <input
-            type="text"
-            id="creator"
-            className="border text-sm rounded block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:outline-none"
-            placeholder="Your name"
-            value={postData.creator}
-            onChange={(e) =>
-              setPostData({ ...postData, creator: e.target.value })
-            }
-            required
-          />
-        </div>
         <div className="mb-2">
           <label
             htmlFor="title"

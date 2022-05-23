@@ -10,22 +10,15 @@ import {
 import { useDispatch } from "react-redux";
 import { likePost, dislikePost } from "../../store/actions/posts";
 import { ToastContainer } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RWebShare } from "react-web-share";
 import Modal from "../Modal";
+import { useEffect } from "react";
 
-const Post = ({
-  _id,
-  creator,
-  title,
-  liner,
-  time,
-  likeCount,
-  setCurrentId,
-  tags,
-}) => {
+const Post = ({ _id, name, title, liner, time, likes, setCurrentId, tags }) => {
   const dispatch = useDispatch();
-  const [like, setLike] = useState(false);
+  // const navigate = useNavigate();
+  const [like, setLike] = useState("");
   const [dislike, setDislike] = useState(false);
   const [modalState, setModalState] = useState(false);
   const postedAtDate = time
@@ -41,33 +34,21 @@ const Post = ({
 
   const likeHandler = () => {
     dispatch(likePost(_id));
-    setLike(!like);
-    if (dislike) {
-      setDislike(!dislike);
-    }
-
-    if (like) {
-      dispatch(dislikePost(_id));
-    }
   };
 
   const dislikeHandler = () => {
     dispatch(dislikePost(_id));
-    setDislike(!dislike);
-    if (like) {
-      setLike(!like);
-    }
-
-    if (dislike) {
-      dispatch(likePost(_id));
-    }
   };
 
+  const openPost = () => {};
+
+  useEffect(() => {
+    setLike(likes.includes(_id));
+  }, [_id, likes]);
+  console.log(likes);
+  console.log(_id);
   return (
-    <Link
-      className="flex mb-2 w-full rounded bg-gray-800 border border-gray-600 hover:border-gray-400 cursor-default"
-      to=""
-    >
+    <div className="flex mb-2 w-full rounded bg-gray-800 border border-gray-600 hover:border-gray-400 cursor-default">
       {modalState ? <Modal setModalState={setModalState} _id={_id} /> : null}
       <ToastContainer />
       <div className="flex flex-col justify-center items-center px-1.5 py-2 bg-gray-900 rounded">
@@ -82,7 +63,7 @@ const Post = ({
             (like && "text-green-500") || (dislike && "text-red-500")
           } text-gray-400 font-semibold`}
         >
-          {likeCount}
+          {likes.length}
         </small>
         <ChevronDownIcon
           className={`${
@@ -95,7 +76,7 @@ const Post = ({
         <div className="text-gray-500 mb-2 flex justify-between">
           <small>
             Posted by{" "}
-            <span className=" font-semibold text-gray-400">{creator}</span> on{" "}
+            <span className=" font-semibold text-gray-400">{name}</span> on{" "}
             {postedAtDate} at {postedAtTime}
           </small>
           <button
@@ -106,24 +87,26 @@ const Post = ({
             <small className="ml-1">Edit</small>
           </button>
         </div>
-        {tags.length > 0 && (
-          <div className="flex w-full gap-1">
-            {tags.map((tag) => (
-              <small
-                className={`border px-1 mr-2 rounded text-xs mb-1 ${
-                  tag.color ? tag.color : "text-white"
-                }`}
-                key={tag.id}
-              >
-                {tag.text}
-              </small>
-            ))}
+        <Link to={`/posts/${_id}`}>
+          {tags.length > 0 && (
+            <div className="flex w-full gap-1">
+              {tags.map((tag) => (
+                <small
+                  className={`border px-1 mr-2 rounded text-xs mb-1 ${
+                    tag.color ? tag.color : "text-white"
+                  }`}
+                  key={tag.id}
+                >
+                  {tag.text}
+                </small>
+              ))}
+            </div>
+          )}
+          <div className="mb-1 text-xl font-medium tracking-wider text-white">
+            {title}
           </div>
-        )}
-        <p className="mb-1 text-xl font-medium tracking-wider text-white">
-          {title}
-        </p>
-        <p className={`font-lg text-gray-300 mb-3`}>{liner}</p>
+          <div className={`font-lg text-gray-300 mb-3`}>{liner}</div>
+        </Link>
         <div className="flex w-full justify-between">
           <div className="flex">
             <button className="flex items-center text-gray-400 hover:bg-gray-400 hover:bg-opacity-30 hover:text-white px-1 rounded mr-2 cursor-pointer">
@@ -155,7 +138,7 @@ const Post = ({
           </button>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

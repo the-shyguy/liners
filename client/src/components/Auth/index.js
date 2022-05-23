@@ -4,6 +4,7 @@ import { GoogleLogin } from "react-google-login";
 import GoogleIcon from "../icons/GoogleIcon";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
+import { signin, signup } from "../../store/actions/auth";
 
 const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
@@ -21,13 +22,20 @@ const Auth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    if (isSignup) {
+      dispatch(signup(formData, navigate));
+      console.log(formData);
+    } else {
+      console.log(formData);
+      dispatch(signin(formData, navigate));
+    }
   };
 
   const handleShowPassword = () => {
@@ -66,8 +74,11 @@ const Auth = () => {
     }
   }, [navigate, location.pathname]);
 
-  // console.log(formData.firstName);
-  // console.log(location.pathname);
+  console.log(formData.firstName);
+  console.log(formData.lastName);
+  console.log(formData.email);
+  console.log(formData.password);
+  console.log(formData.confirmPassword);
   return (
     <div className="w-full h-screen flex justify-center items-center bg-gray-700">
       <div className="w-80">
@@ -82,11 +93,11 @@ const Auth = () => {
                   className="block py-2.5 px-0 w-full text-md bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   required=""
+                  onChange={handleChange}
                 />
                 <label
                   htmlFor="firstName"
                   className="absolute text-md text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                  onChange={handleChange}
                 >
                   First name
                 </label>
@@ -99,6 +110,7 @@ const Auth = () => {
                   className="block py-2.5 px-0 w-full text-md bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   required=""
+                  onChange={handleChange}
                 />
                 <label
                   htmlFor="lastName"
@@ -115,6 +127,7 @@ const Auth = () => {
               name="email"
               className="block py-2.5 px-0 w-full text-md bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
+              onChange={handleChange}
             />
             <label
               htmlFor="email"
@@ -136,10 +149,12 @@ const Auth = () => {
                 />
               </button>
             ) : (
-              <EyeOffIcon
-                className="h-4 absolute right-1 bottom-2 text-gray-500 z-10 cursor-pointer"
-                onClick={() => handleShowPassword()}
-              />
+              <button className="flex">
+                <EyeOffIcon
+                  className="h-4 absolute right-1 bottom-2 text-gray-500 z-10 cursor-pointer"
+                  onClick={() => handleShowPassword()}
+                />
+              </button>
             )}
             <input
               type={`${showPassword ? "text" : "password"}`}
@@ -147,6 +162,7 @@ const Auth = () => {
               id="password"
               className="block py-2.5 px-0 w-full text-md bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
+              onChange={handleChange}
             />
             <label
               htmlFor="password"
@@ -163,6 +179,7 @@ const Auth = () => {
                 id="confirmPassword"
                 className="block py-2.5 px-0 w-full text-md bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
+                onChange={handleChange}
               />
               <label
                 htmlFor="confirmPassword"
