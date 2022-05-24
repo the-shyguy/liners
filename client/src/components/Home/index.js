@@ -52,7 +52,6 @@ const Home = () => {
         icon: "👋",
       }));
     }
-    console.log(time);
   }, [time]);
 
   useEffect(() => {
@@ -64,7 +63,7 @@ const Home = () => {
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, []);
-  console.log(time);
+  // console.log(time);
   return (
     <div
       className={`flex flex-col items-center ${
@@ -96,13 +95,16 @@ const Home = () => {
                         <Post
                           key={post._id}
                           _id={post._id}
+                          creator={post.creator}
                           name={post.name}
                           title={post.title}
                           liner={post.liner}
                           time={post.createdAt}
                           likes={post.likes}
+                          dislikes={post.dislikes}
                           setCurrentId={setCurrentId}
                           tags={post.tags}
+                          user={user}
                         />
                       ) : null
                     )}

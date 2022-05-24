@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
-
   const KeyCodes = {
     comma: 188,
     enter: 13,

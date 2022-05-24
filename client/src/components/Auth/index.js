@@ -9,7 +9,6 @@ import { signin, signup } from "../../store/actions/auth";
 const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  // const [user, setUser] = useState(undefined);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -79,6 +78,7 @@ const Auth = () => {
   console.log(formData.email);
   console.log(formData.password);
   console.log(formData.confirmPassword);
+
   return (
     <div className="w-full h-screen flex justify-center items-center bg-gray-700">
       <div className="w-80">
@@ -237,6 +237,7 @@ const Auth = () => {
           onFailure={googleFailure}
           cookiePolicy="single_host_origin"
         />
+        <p className=" text-red-500">{}</p>
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ export const signin = (formData, navigate) => async (dispatch) => {
     navigate("/posts");
   } catch (error) {
     console.log(error);
+    dispatch({ type: "ERROR", error });
   }
 };
 
@@ -18,6 +19,6 @@ export const signup = (formData, navigate) => async (dispatch) => {
 
     navigate("/posts");
   } catch (error) {
-    console.log(error);
+    console.log(error.response.data.message);
   }
 };

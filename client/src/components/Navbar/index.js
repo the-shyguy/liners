@@ -8,7 +8,6 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
   const logout = () => {
     dispatch({ type: "LOGOUT" });
     navigate("/");
@@ -32,12 +31,29 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-full">
           {user ? (
             <div className="flex items-center">
-              <img
-                className="rounded-lg w-8 h-8 mr-2 text-white text-sm"
-                src={user.result.imageUrl}
-                alt={user.result.name}
-                referrerPolicy="no-referrer"
-              />
+              {user?.result?.imageUrl ? (
+                <img
+                  className="rounded-full w-8 h-8 mr-3 text-white text-sm"
+                  src={user.result.imageUrl}
+                  alt={user.result.name}
+                  referrerPolicy="no-referrer"
+                />
+              ) : (
+                <div className="relative w-8 h-8 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 mr-3">
+                  <svg
+                    className="absolute w-10 h-10 text-gray-400 -left-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+              )}
               <p className="text-white text-sm">{user.result.name}</p>
 
               <button

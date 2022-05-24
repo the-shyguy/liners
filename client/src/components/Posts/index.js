@@ -10,15 +10,26 @@ import {
 import { useDispatch } from "react-redux";
 import { likePost, dislikePost } from "../../store/actions/posts";
 import { ToastContainer } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { RWebShare } from "react-web-share";
 import Modal from "../Modal";
 import { useEffect } from "react";
 
-const Post = ({ _id, name, title, liner, time, likes, setCurrentId, tags }) => {
+const Post = ({
+  _id,
+  name,
+  title,
+  liner,
+  time,
+  likes,
+  dislikes,
+  setCurrentId,
+  tags,
+  creator,
+  user,
+}) => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  const [like, setLike] = useState("");
+  const [like, setLike] = useState(false);
   const [dislike, setDislike] = useState(false);
   const [modalState, setModalState] = useState(false);
   const postedAtDate = time
@@ -30,7 +41,6 @@ const Post = ({ _id, name, title, liner, time, likes, setCurrentId, tags }) => {
   const postedAtTime = time.split("T")[1].split(".")[0];
   // ID to be added here
   const url = `${window.location.href}`;
-  // console.log(url);
 
   const likeHandler = () => {
     dispatch(likePost(_id));
@@ -40,13 +50,16 @@ const Post = ({ _id, name, title, liner, time, likes, setCurrentId, tags }) => {
     dispatch(dislikePost(_id));
   };
 
-  const openPost = () => {};
+  // const openPost = () => {};
 
   useEffect(() => {
-    setLike(likes.includes(_id));
-  }, [_id, likes]);
-  console.log(likes);
-  console.log(_id);
+    setLike(likes.includes(creator));
+    setDislike(dislikes.includes(creator));
+  }, [creator, likes, dislikes]);
+
+  // console.log(like);
+  // console.log(creator);
+  // console.log(likes.length);
   return (
     <div className="flex mb-2 w-full rounded bg-gray-800 border border-gray-600 hover:border-gray-400 cursor-default">
       {modalState ? <Modal setModalState={setModalState} _id={_id} /> : null}
@@ -63,7 +76,7 @@ const Post = ({ _id, name, title, liner, time, likes, setCurrentId, tags }) => {
             (like && "text-green-500") || (dislike && "text-red-500")
           } text-gray-400 font-semibold`}
         >
-          {likes.length}
+          {likes.length - dislikes.length}
         </small>
         <ChevronDownIcon
           className={`${
