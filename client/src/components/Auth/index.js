@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
 import { GoogleLogin } from "react-google-login";
 import GoogleIcon from "../icons/GoogleIcon";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { signin, signup } from "../../store/actions/auth";
 import { stmt } from "../helper";
@@ -10,6 +10,8 @@ import { stmt } from "../helper";
 const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMesaage, setErrorMessage] = useState("");
+  const error = useSelector((state) => state.auth.errorData);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -25,16 +27,19 @@ const Auth = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrorMessage("");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isSignup) {
-      dispatch(signup(formData, navigate));
-      console.log(formData);
-    } else {
-      console.log(formData);
-      dispatch(signin(formData, navigate));
+    try {
+      if (isSignup) {
+        dispatch(signup(formData, navigate));
+      } else {
+        dispatch(signin(formData, navigate));
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -45,7 +50,9 @@ const Auth = () => {
   const switchMode = () => {
     setIsSignup(!isSignup);
     setShowPassword(false);
+    setErrorMessage("");
     setFormData({
+      email: "",
       password: "",
       confirmPassword: "",
     });
@@ -62,6 +69,7 @@ const Auth = () => {
       console.log(error);
     }
   };
+
   const googleFailure = (error) => {
     console.log(error);
   };
@@ -74,11 +82,9 @@ const Auth = () => {
     }
   }, [navigate, location.pathname]);
 
-  console.log(formData.firstName);
-  console.log(formData.lastName);
-  console.log(formData.email);
-  console.log(formData.password);
-  console.log(formData.confirmPassword);
+  useEffect(() => {
+    setErrorMessage(error);
+  }, [error]);
 
   return (
     <div className="w-full h-screen flex flex-col md:flex-row justify-center items-center bg-white px-6 md:px-0">
@@ -105,7 +111,7 @@ const Auth = () => {
                   id="firstName"
                   className="block py-2.5 px-0 w-full text-md bg-transparent border-0 border-b-2 appearance-none text-gray-700 border-gray-400 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required=""
+                  required
                   onChange={handleChange}
                 />
                 <label
@@ -122,7 +128,7 @@ const Auth = () => {
                   id="lastName"
                   className="block py-2.5 px-0 w-full text-md bg-transparent border-0 border-b-2 appearance-none text-gray-700 border-gray-400 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required=""
+                  required
                   onChange={handleChange}
                 />
                 <label
@@ -140,7 +146,9 @@ const Auth = () => {
               name="email"
               className="block py-2.5 px-0 w-full text-md bg-transparent border-0 border-b-2 appearance-none text-gray-700 border-gray-400 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
+              required
               onChange={handleChange}
+              value={formData.email}
             />
             <label
               htmlFor="email"
@@ -176,6 +184,8 @@ const Auth = () => {
               className="block py-2.5 px-0 w-full text-md bg-transparent border-0 border-b-2 appearance-none text-gray-700 border-gray-400 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               onChange={handleChange}
+              required
+              value={formData.password}
             />
             <label
               htmlFor="password"
@@ -193,6 +203,8 @@ const Auth = () => {
                 className="block py-2.5 px-0 w-full text-md bg-transparent border-0 border-b-2 appearance-none text-gray-700 border-gray-400 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
                 onChange={handleChange}
+                required
+                value={formData.confirmPassword}
               />
               <label
                 htmlFor="confirmPassword"
@@ -201,6 +213,9 @@ const Auth = () => {
                 Confirm password
               </label>
             </div>
+          )}
+          {errorMesaage && (
+            <p className=" text-red-500 text-xs mb-2">{errorMesaage}</p>
           )}
           {isSignup ? (
             <div className="flex w-full justify-end">
@@ -237,7 +252,7 @@ const Auth = () => {
             clientId={process.env.REACT_APP_CLIENT_ID}
             render={(renderProps) => (
               <button
-                className="google-btn w-full bg-white py-2 rounded-lg font-medium text-gray-600 flex justify-center items-center gap-2 transition-all"
+                className="google-btn w-full bg-white py-2 rounded-lg font-medium text-gray-600 flex justify-center items-center gap-2 transition-all cursor-pointer"
                 onClick={renderProps.onClick}
                 disabled={renderProps.disabled}
               >
@@ -249,8 +264,6 @@ const Auth = () => {
             cookiePolicy="single_host_origin"
           />
         </form>
-
-        <p className=" text-red-500">{}</p>
       </div>
       <div className="mt-20 sm:absolute bottom-0 md:left-0 md:ml-2 md:mb-2 text-xs md:text-sm">
         {stmt()}
@@ -259,13 +272,13 @@ const Auth = () => {
         <div className=" text-white md:text-5xl lg:text-7xl font-semibold tracking-wider mb-4">
           liner
         </div>
-        <p className="text-white mb-20">
+        <p className="text-white mb-16">
           {isSignup
-            ? "Be a part of liner community and show your liner skills now."
+            ? `Be a part of the community. Explore, share and create liners.`
             : "Glad to see you back to the community."}
         </p>
         <div className="text-white flex flex-col">
-          <p className="mb-2">"{"That's what she said"}"</p>
+          <p className="mb-2 italic">"{"My life is like a sin wave"}"</p>
           <p className="text-sm self-end">-Admin</p>
         </div>
       </div>

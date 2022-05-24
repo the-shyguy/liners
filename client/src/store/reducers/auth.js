@@ -1,4 +1,4 @@
-const authReducer = (state = { authData: null }, action) => {
+const authReducer = (state = { authData: null, errorData: null }, action) => {
   switch (action.type) {
     case "AUTH":
       localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
@@ -6,6 +6,8 @@ const authReducer = (state = { authData: null }, action) => {
     case "LOGOUT":
       localStorage.removeItem("profile");
       return { ...state, authData: null };
+    case "ERROR":
+      return { errorData: action?.data };
     default:
       return state;
   }
