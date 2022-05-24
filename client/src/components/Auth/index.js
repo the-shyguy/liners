@@ -263,7 +263,7 @@ const Auth = () => {
           <p className="text-sm self-end">-Admin</p>
         </div>
       </div>
-      <div className=" absolute bottom-0 md:left-0 text-sm mb-4 ml-4">
+      <div className=" absolute bottom-0 md:left-0 md:ml-2 md:mb-2 text-xs md:text-sm">
         {stmt()}
       </div>
     </div>
