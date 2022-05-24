@@ -245,7 +245,11 @@ const Auth = () => {
         <p className=" text-red-500">{}</p>
       </div>
       <div className=" md:hidden">
-        <div className="text-6xl font-semibold tracking-wider text-blue-700 mb-20">
+        <div
+          className={`text-6xl font-semibold tracking-wider text-blue-700 ${
+            isSignup ? "mb-10" : "mb-20"
+          }`}
+        >
           liner
         </div>
       </div>
