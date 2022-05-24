@@ -81,8 +81,17 @@ const Auth = () => {
   console.log(formData.confirmPassword);
 
   return (
-    <div className="w-full h-screen flex flex-col-reverse md:flex-row justify-center items-center bg-white px-6 md:px-0">
+    <div className="w-full h-screen flex flex-col md:flex-row justify-center items-center bg-white px-6 md:px-0">
       <div className="w-full md:w-2/3">
+        <div className="flex justify-center md:hidden">
+          <div
+            className={`text-6xl font-semibold tracking-wider text-blue-700 ${
+              isSignup ? "mb-10" : "mb-20"
+            }`}
+          >
+            liner
+          </div>
+        </div>
         <form
           className="auth-from px-6 sm:px-0 sm:w-80 mx-auto"
           onSubmit={handleSubmit}
@@ -218,7 +227,6 @@ const Auth = () => {
               </small>
             </div>
           )}
-
           <button
             type="submit"
             className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-md w-full px-5 py-2 text-center mb-4 transition-all"
@@ -244,14 +252,8 @@ const Auth = () => {
 
         <p className=" text-red-500">{}</p>
       </div>
-      <div className=" md:hidden">
-        <div
-          className={`text-6xl font-semibold tracking-wider text-blue-700 ${
-            isSignup ? "mb-10" : "mb-20"
-          }`}
-        >
-          liner
-        </div>
+      <div className="mt-20 sm:absolute bottom-0 md:left-0 md:ml-2 md:mb-2 text-xs md:text-sm">
+        {stmt()}
       </div>
       <div className="w-1/3 h-full flex-col justify-center items-center auth-bg hidden md:flex bg-blue-800 md:px-8 lg:px-12">
         <div className=" text-white md:text-5xl lg:text-7xl font-semibold tracking-wider mb-4">
@@ -266,9 +268,6 @@ const Auth = () => {
           <p className="mb-2">"{"That's what she said"}"</p>
           <p className="text-sm self-end">-Admin</p>
         </div>
-      </div>
-      <div className=" absolute bottom-0 md:left-0 md:ml-2 md:mb-2 text-xs md:text-sm">
-        {stmt()}
       </div>
     </div>
   );
