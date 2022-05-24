@@ -113,6 +113,7 @@ const Auth = () => {
                   placeholder=" "
                   required
                   onChange={handleChange}
+                  autoFocus={isSignup ? true : false}
                 />
                 <label
                   htmlFor="firstName"
@@ -149,6 +150,7 @@ const Auth = () => {
               required
               onChange={handleChange}
               value={formData.email}
+              autoFocus={!isSignup ? true : false}
             />
             <label
               htmlFor="email"
@@ -163,19 +165,19 @@ const Auth = () => {
             } relative z-0 w-full group`}
           >
             {showPassword ? (
-              <button className="flex">
+              <span className="flex">
                 <EyeIcon
                   className="h-4 absolute right-1 bottom-2 text-gray-400 z-10 cursor-pointer"
                   onClick={() => handleShowPassword()}
                 />
-              </button>
+              </span>
             ) : (
-              <button className="flex">
+              <span className="flex">
                 <EyeOffIcon
                   className="h-4 absolute right-1 bottom-2 text-gray-400 z-10 cursor-pointer"
                   onClick={() => handleShowPassword()}
                 />
-              </button>
+              </span>
             )}
             <input
               type={`${showPassword ? "text" : "password"}`}

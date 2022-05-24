@@ -67,20 +67,20 @@ const Post = ({
       <div className="flex flex-col justify-center items-center px-1.5 py-2 bg-gray-900 rounded">
         <ChevronUpIcon
           className={`${
-            like && "text-green-500"
+            like && user && "text-green-500"
           } h-6 text-gray-400 hover:text-green-500 hover:bg-gray-600 hover:bg-opacity-50 rounded-sm cursor-pointer mb-1`}
           onClick={() => likeHandler()}
         />
         <small
           className={` ${
-            (like && "text-green-500") || (dislike && "text-red-500")
+            user && ((like && "text-green-500") || (dislike && "text-red-500"))
           } text-gray-400 font-semibold`}
         >
           {likes.length - dislikes.length}
         </small>
         <ChevronDownIcon
           className={`${
-            dislike && "text-red-500"
+            dislike && user && "text-red-500"
           } h-6 text-gray-400 hover:text-red-500 hover:bg-gray-600 hover:bg-opacity-50 rounded-sm cursor-pointer mt-1`}
           onClick={() => dislikeHandler()}
         />
