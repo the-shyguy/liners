@@ -121,7 +121,7 @@ const Form = ({ currentId, setCurrentId }) => {
   };
 
   return (
-    <div className="bg-gray-800 p-4 rounded">
+    <div className="bg-[#1A2730] p-4 rounded-lg">
       <ToastContainer />
       <form autoComplete="off" onSubmit={handleSubmit}>
         <div className="mb-2">
@@ -134,7 +134,7 @@ const Form = ({ currentId, setCurrentId }) => {
           <input
             type="text"
             id="title"
-            className="border text-sm rounded block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:outline-none"
+            className="border text-sm rounded block w-full p-2 bg-[#28353E] border-none placeholder-gray-400 text-white focus:outline-none"
             placeholder="Short and cool"
             value={postData.title}
             onChange={(e) =>
@@ -153,7 +153,7 @@ const Form = ({ currentId, setCurrentId }) => {
           <input
             type="text"
             id="liner"
-            className="border text-sm rounded block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:outline-none"
+            className="border text-sm rounded block w-full p-2 bg-[#28353E] border-none placeholder-gray-400 text-white focus:outline-none"
             placeholder="Liner"
             value={postData.liner}
             onChange={(e) =>
@@ -167,7 +167,7 @@ const Form = ({ currentId, setCurrentId }) => {
             classNames={{
               selected: "text-white w-full flex mt-4",
               tagInputField:
-                "border text-sm rounded block w-1/2 p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:outline-none mt-2 mb-3",
+                "border text-sm rounded block w-1/2 p-2 bg-[#28353E] border-none placeholder-gray-400 text-white focus:outline-none mt-2 mb-3",
               tag: `mr-2 text-sm border px-1 py-0.5 rounded`,
               suggestions: "text-gray-400 bg-gray-700 mb-2 p-1 rounded text-sm",
               activeSuggestion:

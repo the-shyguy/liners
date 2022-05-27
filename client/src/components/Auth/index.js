@@ -274,12 +274,12 @@ const Auth = () => {
         <div className=" text-white md:text-5xl lg:text-7xl font-semibold tracking-wider mb-4">
           liner
         </div>
-        <p className="text-white mb-16">
+        <p className="text-white mb-16 md:text-sm lg:text-base">
           {isSignup
-            ? `Be a part of the community. Explore, share and create liners.`
+            ? `Be a part of the community. Explore, create and share liners.`
             : "Glad to see you back to the community."}
         </p>
-        <div className="text-white flex flex-col">
+        <div className="text-white flex flex-col md:text-sm lg:text-base">
           <p className="mb-2 italic">"{"My life is like a sin wave"}"</p>
           <p className="text-sm self-end">-Admin</p>
         </div>

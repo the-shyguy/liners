@@ -12,7 +12,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="bg-white">
+    <div className="dark:bg-[#05151C] bg-[#F1F2F5]">
       <Navbar />
       <Home />
     </div>

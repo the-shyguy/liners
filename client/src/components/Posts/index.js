@@ -61,10 +61,10 @@ const Post = ({
   // console.log(creator);
   // console.log(likes.length);
   return (
-    <div className="flex mb-2 w-full rounded bg-gray-800 border border-gray-600 hover:border-gray-400 cursor-default">
+    <div className="flex mb-4 w-full rounded-lg bg-[#1A2730] border border-[#1A2730] hover:border-gray-400 cursor-default">
       {modalState ? <Modal setModalState={setModalState} _id={_id} /> : null}
       <ToastContainer />
-      <div className="flex flex-col justify-center items-center px-1.5 py-2 bg-gray-900 rounded">
+      <div className="flex flex-col justify-center items-center px-1.5 py-2 bg-gray-900 rounded-lg">
         <ChevronUpIcon
           className={`${
             like && user && "text-green-500"

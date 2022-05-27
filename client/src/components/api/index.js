@@ -10,7 +10,6 @@ API.interceptors.request.use((req) => {
   }
   return req;
 });
-// const url = process.env.REACT_APP_API_URL;
 
 // const deployedURL = "https://liner-server.herokuapp.com/posts";
 
