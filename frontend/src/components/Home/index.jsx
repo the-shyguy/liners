@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import Post from "../Posts";
 import { useSelector } from "react-redux";
 import Form from "../Form";
@@ -30,7 +30,7 @@ const Home = () => {
           <Loader />
         </div>
       ) : (
-        <>
+        <Fragment>
           <div className=" col-span-2 flex flex-col overflow-scroll liners">
             <div className="text-white mb-1 font-medium text-lg pl-1">
               Latest Liners
@@ -76,7 +76,7 @@ const Home = () => {
             </div>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
           </div>
-        </>
+        </Fragment>
       )}
     </div>
   );

@@ -1,7 +1,7 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
-import "./index.css";
+import ReactDOM from "react-dom/client";
 import App from "./App";
+import "./index.css";
 import Auth from "./components/Auth";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -16,7 +16,7 @@ const store = configureStore(
   compose(applyMiddleware(thunk))
 );
 
-const APP = (
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
@@ -31,8 +31,3 @@ const APP = (
     </Provider>
   </React.StrictMode>
 );
-
-const container = document.getElementById("root");
-const root = createRoot(container);
-
-root.render(APP);
