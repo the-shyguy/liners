@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --output build"
+    "build": "vite build --output public"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.3",
