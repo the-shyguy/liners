@@ -4,11 +4,14 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
 import { SunIcon } from "@heroicons/react/outline";
-import { MoonIcon } from "@heroicons/react/solid";
+import { BellIcon, MoonIcon } from "@heroicons/react/solid";
 import Dropdown from "./Dropdown";
+import Notification from "./Notification";
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
+  const [dark, setDark] = useState(true);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,6 +19,11 @@ const Navbar = () => {
     dispatch({ type: "LOGOUT" });
     navigate("/");
     setUser(null);
+  };
+
+  const handleTheme = () => {
+    document.getElementById("root").classList.toggle("dark");
+    setDark(!dark);
   };
 
   useEffect(() => {
@@ -39,7 +47,7 @@ const Navbar = () => {
         />
       </div>
       <div className="flex justify-between items-center h-full gap-8">
-        <div className="dark:text-white text-black">for something</div>
+        <Notification />
         {user ? (
           <div className="flex items-center gap-4">
             <Dropdown user={user} logout={logout} />
@@ -54,10 +62,16 @@ const Navbar = () => {
             </button>
           </Link>
         )}
-        <button className="flex">
-          <SunIcon className="h-8 dark:text-white" />
-        </button>
-        <MoonIcon className="h-8 dark:text-white" />
+
+        {dark ? (
+          <button className="flex" onClick={() => handleTheme()}>
+            <SunIcon className="h-8 dark:text-white" />
+          </button>
+        ) : (
+          <button className="flex" onClick={() => handleTheme()}>
+            <MoonIcon className="h-8 dark:text-white" />
+          </button>
+        )}
       </div>
     </div>
   );

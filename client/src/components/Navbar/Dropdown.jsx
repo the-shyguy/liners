@@ -33,7 +33,7 @@ const Dropdown = ({ user, logout }) => {
             </svg>
           </div>
         )}
-        <p className="dark:text-white text-sm">{user.result.name}</p>
+        <p className="dark:text-white text-xs">{user.result.name}</p>
         <ChevronDownIcon
           className="h-4 w-4 dark:text-white"
           aria-hidden="true"

@@ -251,7 +251,7 @@ const Auth = () => {
             {isSignup ? "Sign Up" : "Sign In"}
           </button>
           <GoogleLogin
-            clientId={import.meta.env.VITE_CLIENT_ID}
+            clientId={process.env.REACT_APP_CLIENT_ID}
             render={(renderProps) => (
               <button
                 className="google-btn w-full bg-white py-2 rounded-lg font-medium text-gray-600 flex justify-center items-center gap-2 transition-all cursor-pointer"

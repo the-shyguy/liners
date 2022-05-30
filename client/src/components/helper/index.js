@@ -1,6 +1,6 @@
 export const stmt = () => {
   const date = new Date().getFullYear();
-  const line = `Copyright ©${date} Liner.`;
+  const line = `Copyright ©${date} LinerApp.`;
 
   return line;
 };

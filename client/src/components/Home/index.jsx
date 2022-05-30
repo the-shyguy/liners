@@ -24,7 +24,7 @@ const Home = () => {
 
   return (
     <div className="grid md:grid-cols-4 h-screen gap-6 px-6 pt-24">
-      <Profile />
+      <Profile user={user} />
       {!posts ? (
         <div className=" flex justify-center items-center h-screen">
           <Loader />
@@ -63,14 +63,7 @@ const Home = () => {
             )}
           </div>
           <div className="">
-            <div>
-              <div className="text-white mb-1 font-medium text-lg pl-1">
-                Top Liners
-              </div>
-              {/* {topPosts.map((post) => (
-                <TopPosts post={post} key={post._id} />
-              ))} */}
-            </div>
+            <TopPosts topPosts={topPosts} />
             <div className="mb-1 text-white font-medium text-lg mt-6 pl-1">
               {currentId ? "Edit" : "Create"} a Liner
             </div>
