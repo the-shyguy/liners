@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { RWebShare } from "react-web-share";
 import Modal from "../Modal";
 import { useEffect } from "react";
+import { dateFormatter } from "../helper";
 
 const Post = ({
   _id,
@@ -32,12 +33,7 @@ const Post = ({
   const [like, setLike] = useState(false);
   const [dislike, setDislike] = useState(false);
   const [modalState, setModalState] = useState(false);
-  const postedAtDate = time
-    .split("T")[0]
-    .replace(/-/g, "/")
-    .split("/")
-    .reverse()
-    .join("/");
+  const postedAtDate = dateFormatter(time);
   const postedAtTime = time.split("T")[1].split(".")[0];
   // ID to be added here
   const url = `${window.location.href}`;

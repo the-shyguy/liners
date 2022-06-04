@@ -11,11 +11,11 @@ const index = ({ user }) => {
           className=" rounded-t-xl"
         />
       </div>
-      <div className="bg-[#1A2730] relative flex flex-col items-center justify-center dark:text-white rounded-b-xl">
+      <div className="bg-white dark:bg-[#1A2730] relative flex flex-col items-center justify-center dark:text-white rounded-b-xl">
         <img
           src={user?.result?.imageUrl}
           alt={user?.result?.name}
-          className="rounded-full absolute -top-12"
+          className="rounded-full absolute -top-12 max-h-24"
         />
         <div className="font-semibold mb-4 mt-14">{user?.result?.name}</div>
         <div className="text-sm mb-6">Working on liner rn!</div>

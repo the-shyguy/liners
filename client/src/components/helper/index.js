@@ -4,3 +4,7 @@ export const stmt = () => {
 
   return line;
 };
+
+export const dateFormatter = (time) => {
+  return time.split("T")[0].replace(/-/g, "/").split("/").reverse().join("/");
+};

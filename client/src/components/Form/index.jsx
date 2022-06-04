@@ -121,7 +121,7 @@ const Form = ({ currentId, setCurrentId }) => {
   };
 
   return (
-    <div className="bg-[#1A2730] p-4 rounded-lg">
+    <div className="bg-white dark:bg-[#1A2730] p-4 rounded-lg">
       <ToastContainer />
       <form autoComplete="off" onSubmit={handleSubmit}>
         <div className="mb-2">
@@ -134,7 +134,7 @@ const Form = ({ currentId, setCurrentId }) => {
           <input
             type="text"
             id="title"
-            className="border text-sm rounded block w-full p-2 bg-[#28353E] border-none placeholder-gray-400 text-white focus:outline-none"
+            className="border text-sm rounded block w-full p-2 dark:bg-[#28353E] border-none placeholder-gray-400 text-white focus:outline-none"
             placeholder="Short and cool"
             value={postData.title}
             onChange={(e) =>
@@ -153,7 +153,7 @@ const Form = ({ currentId, setCurrentId }) => {
           <input
             type="text"
             id="liner"
-            className="border text-sm rounded block w-full p-2 bg-[#28353E] border-none placeholder-gray-400 text-white focus:outline-none"
+            className="border text-sm rounded block w-full p-2 dark:bg-[#28353E] border-none placeholder-gray-400 text-white focus:outline-none"
             placeholder="Liner"
             value={postData.liner}
             onChange={(e) =>
@@ -167,7 +167,7 @@ const Form = ({ currentId, setCurrentId }) => {
             classNames={{
               selected: "text-white w-full flex mt-4",
               tagInputField:
-                "border text-sm rounded block w-1/2 p-2 bg-[#28353E] border-none placeholder-gray-400 text-white focus:outline-none mt-2 mb-3",
+                "border text-sm rounded block w-1/2 p-2 dark:bg-[#28353E] border-none placeholder-gray-400 text-white focus:outline-none mt-2 mb-3",
               tag: `mr-2 text-sm border px-1 py-0.5 rounded`,
               suggestions: "text-gray-400 bg-gray-700 mb-2 p-1 rounded text-sm",
               activeSuggestion:
@@ -188,9 +188,9 @@ const Form = ({ currentId, setCurrentId }) => {
         </div>
         <button
           type="submit"
-          className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:outline-none"
+          className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 dark:text-white hover:text-white transition-all focus:outline-none"
         >
-          <span className="relative px-5 py-2 transition-all ease-in duration-75 bg-gray-800 rounded-md group-hover:bg-opacity-0">
+          <span className="relative px-5 py-2 transition-all ease-in duration-75 dark:bg-gray-800 rounded-md group-hover:bg-opacity-0">
             Post
           </span>
         </button>
