@@ -1,16 +1,16 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { BellIcon } from "@heroicons/react/solid";
+import { DotsHorizontalIcon, PencilIcon } from "@heroicons/react/solid";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Notification = () => {
+const PostHandler = ({ setCurrentId, _id }) => {
   return (
     <Menu as="div" className=" relative inline-block text-center">
-      <Menu.Button className="flex items-center">
-        <BellIcon className="h-6 dark:text-white text-black" />
+      <Menu.Button className="flex items-center dark:hover:bg-gray-400 dark:hover:bg-opacity-30 transition-all px-2 py-0.5 rounded-lg">
+        <DotsHorizontalIcon className="h-4 dark:text-white text-black" />
       </Menu.Button>
 
       <Transition
@@ -22,19 +22,22 @@ const Notification = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1">
+        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-44 rounded-md shadow-lg dark:bg-[#28353E] ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="">
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="/"
+                <button
                   className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+                    active
+                      ? "bg-gray-600 text-white rounded-t-md"
+                      : "text-white",
+                    "px-4 py-2 text-sm w-full flex justify-center items-center gap-2"
                   )}
+                  onClick={() => setCurrentId(_id)}
                 >
-                  Profile
-                </a>
+                  <PencilIcon className="h-3.5 " />
+                  Edit
+                </button>
               )}
             </Menu.Item>
             <Menu.Item>
@@ -57,4 +60,4 @@ const Notification = () => {
   );
 };
 
-export default Notification;
+export default PostHandler;

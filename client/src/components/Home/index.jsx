@@ -24,7 +24,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="grid lg:grid-cols-4 h-screen gap-6 px-6 pt-24">
+    <div className=" lg:grid lg:grid-cols-4 gap-6 px-6 pt-24 h-screen">
       {/* Need to add user check */}
       <Profile user={user} />
       {!posts ? (
@@ -34,7 +34,7 @@ const Home = () => {
       ) : (
         <Fragment>
           <div className=" col-span-2 flex flex-col overflow-scroll liners">
-            <div className="dark:text-white mb-1 font-medium text-lg pl-1">
+            <div className="dark:text-white mb-1 font-medium text-2xl pl-1">
               Latest Liners
             </div>
             {posts.length ? (
